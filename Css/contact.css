@@ -1,0 +1,32 @@
+h2{
+    font-family: 'Lato', sans-serif;
+}
+.contact-form input,form textarea{
+   margin-bottom:10px;
+}
+.contact-form button{
+    background-color:#324a8b!important;
+    color: white !important;
+    font-weight: bold;
+}
+.contact-form textarea{
+    height: 180px !important;
+}
+ .contact-form input:not([type='submit'])+ i{
+     height:0;
+     position: relative;
+     top:-40px;
+     left:10px;
+     color:#999;
+
+ }
+ .contact-form input{
+     padding-left:33px;
+ }
+ 
+ .contact-form .fa-paper-plane{
+    color: white;
+    position: relative;
+    top: 0px;
+    left: -2px;
+ }
