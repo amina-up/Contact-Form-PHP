@@ -1,3 +1,34 @@
+
+<?php
+//check if User Coming From A request
+if(isset($_REQUEST['submit'])){
+  $user = $_REQUEST['username'];
+  $mail = $_REQUEST['email'];
+  $cell = $_REQUEST['mobile'];
+  $msg = $_REQUEST['message'];
+  $userError='';
+  $msgError='';
+  if(strlen($user) <=3){
+   $userError=' Username Must be Larger <strong>Than 3 Characters</strong>';
+   }
+   if(strlen($msg) <=10){
+    $formErrors[]=' Message can\'t be Less <strong>Than 10 Characters</strong> ';
+ 
+ 
+   }
+
+ 
+}
+
+
+
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,33 +46,44 @@
  <!--Start Form-->
  <h2 class="text-center">Contact Me</h2>
 
+ 
+ 
  <div class="container mt-5">
-     
+ <?php if(isset($formErrors)){?>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+You should check in on some of those fields below.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+<?php
+ foreach($formErrors as $error){
+   echo $error.'<br/>';
+ }
+}
+ ?>
+</div>
 	<div class="row">
     <div class="col-md-6 ">
 			<img alt="Bootstrap Image Preview" class="ml-5"src="fonts/contact-image.png" />
 		</div>
 		<div class="col-md-6">
-			<form role="form" class="contact-form">
-					<input type="text" class="form-control"name="username" placeholder="Type your Username"/>
+			<form role="form" class="contact-form" method="POST" action="index.php">
+					<input type="text" class="form-control"name="username" id="username" placeholder="Type your Username"/>
                     <i class="fa fa-user fa-fw"></i>
-                    <input type="email" class="form-control" name="email" placeholder="Please Type a Valid Email " />
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Please Type a Valid Email " />
                     <i class="fa fa-envelope fa-fw"></i>
-                    <input type="text" class="form-control"name="mobile" placeholder="Type your cell phone"/>
+                    <input type="text" class="form-control"name="mobile" id="mobile" placeholder="Type your cell phone"/>
                   <i class="fa fa-phone fa-fw"></i>
-                    <textarea class="form-control" placeholder="Your Message!"></textarea>
+                    <textarea class="form-control" placeholder="Your Message!"name="message" id="message"></textarea>
                
 					 
 				
 				
             
-				
-				<button type="submit" class="btn ">
-                <i class="fas fa-paper-plane fa-fw"></i>
-                 Send Message
-				</button>
-               	
-			</form>
+
+        <input  type="submit" name="submit" class="btn "
+         value=" Send Message">
+       
+      </form>
 		</div>
 		
 	

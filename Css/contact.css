@@ -1,13 +1,31 @@
 h2{
     font-family: 'Lato', sans-serif;
+    font-weight:bold ;
+    font-size: 50px;
+    letter-spacing: -3px;
+    color:#5972e0
 }
 .contact-form input,form textarea{
    margin-bottom:10px;
 }
-.contact-form button{
-    background-color:#324a8b!important;
-    color: white !important;
-    font-weight: bold;
+.contact-form .contact-form{
+    margin-bottom:0;
+    position: relative;
+
+}
+.contact-form .asterisx{
+    float:right;
+    height: 0;
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+    background-color: #324a8b;
+    color: white;
+    font-weight:bold ;
+border-radius: 10px;
+    padding:8px;
+    font-family: 'Lato', sans-serif;
 }
 .contact-form textarea{
     height: 180px !important;
