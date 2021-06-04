@@ -13,10 +13,10 @@ h2{
     position: relative;
 
 }
-.contact-form .asterisx{
-    float:right;
-    height: 0;
-}
+ .contact-form .custom-alert{
+    padding:5px 10px;
+    display: none; 
+ }
 
 [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
     cursor: pointer;

@@ -2,21 +2,29 @@
 <?php
 //check if User Coming From A request
 if(isset($_REQUEST['submit'])){
-  $user = $_REQUEST['username'];
-  $mail = $_REQUEST['email'];
-  $cell = $_REQUEST['mobile'];
-  $msg = $_REQUEST['message'];
-  $userError='';
-  $msgError='';
+  $user =filter_var($_REQUEST['username'],FILTER_SANITIZE_STRING);
+  $mail =filter_var($_REQUEST['email'],FILTER_SANITIZE_EMAIL);
+  $cell =filter_var($_REQUEST['mobile'],FILTER_SANITIZE_NUMBER_INT);
+  $msg =filter_var($_REQUEST['message'],FILTER_SANITIZE_STRING);
+
+
+ 
+  $formErrors=array();
+  
   if(strlen($user) <=3){
-   $userError=' Username Must be Larger <strong>Than 3 Characters</strong>';
+    $formErrors[]=' Username Must be Larger <strong>Than 3 Characters</strong>';
    }
    if(strlen($msg) <=10){
     $formErrors[]=' Message can\'t be Less <strong>Than 10 Characters</strong> ';
  
  
    }
-
+   $headers='From:' . $mail . '\r\n';
+   $myEmail='aminalaabidi2018@gmail.com';
+   $subject='Contact Form';
+if(empty($formErrors)){
+  mail($myEmail,$subject,$msg,$headers);
+}
  
 }
 
@@ -44,38 +52,38 @@ if(isset($_REQUEST['submit'])){
 </head>
 <body>
  <!--Start Form-->
+ <div class="container mt-5">
  <h2 class="text-center">Contact Me</h2>
 
  
  
- <div class="container mt-5">
- <?php if(isset($formErrors)){?>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-You should check in on some of those fields below.
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
-<?php
- foreach($formErrors as $error){
-   echo $error.'<br/>';
- }
-}
- ?>
-</div>
+
+
+
 	<div class="row">
     <div class="col-md-6 ">
 			<img alt="Bootstrap Image Preview" class="ml-5"src="fonts/contact-image.png" />
 		</div>
 		<div class="col-md-6">
 			<form role="form" class="contact-form" method="POST" action="index.php">
-					<input type="text" class="form-control"name="username" id="username" placeholder="Type your Username"/>
+				
+                  <input type="text" class="form-control username"name="username" id="username" placeholder="Type your Username" 
+                  value="<?php if(isset($user)){echo $user;}?>"/>
                     <i class="fa fa-user fa-fw"></i>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Please Type a Valid Email " />
+                   
+                    <div class="alert alert-danger custom-alert">Username Must be Larger <strong>Than 3 Characters</strong></div>
+                    <input type="email" class="form-control email" name="email" id="email" placeholder="Please Type a Valid Email " 
+                    value="<?php if(isset($mail)){echo $mail;}?>" />
                     <i class="fa fa-envelope fa-fw"></i>
-                    <input type="text" class="form-control"name="mobile" id="mobile" placeholder="Type your cell phone"/>
+                    <div class="alert alert-danger custom-alert custom-alert-user">Email can't be <strong>Empty</strong></div>
+                    <input type="text" class="form-control cell"name="mobile" id="mobile" placeholder="Type your cell phone"
+                    value="<?php if(isset($cell)){echo $cell;}?>"/>
                   <i class="fa fa-phone fa-fw"></i>
-                    <textarea class="form-control" placeholder="Your Message!"name="message" id="message"></textarea>
+                    <textarea class="form-control message" placeholder="Your Message!"name="message" id="message"
+                     value="<?php if(isset($msg)){echo $msg;}?>"></textarea>
                
-					 
+                     <div class="alert alert-danger custom-alert">Message Must be Larger <strong>Than 10 Characters</strong></div>
 				
 				
             
@@ -88,14 +96,26 @@ You should check in on some of those fields below.
 		
 	
 </div>
+</div>
  <!--End Form-->
 
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
 <!-- JQuery CDN -->
+
 <script
   src="https://code.jquery.com/jquery-3.6.0.js"
   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
   crossorigin="anonymous"></script>
+<!-- JavaScript SCRIPT CDN-->
+  <script src="js/custom.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+
 </body>
 </html>
